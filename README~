@@ -11,6 +11,7 @@ Directories:
 Files:	
 	README:		This file
 	book.tex: 	The main source of the book, written in LaTeX.
+	foreword.tex:	The foreword part of the book.
 	title.tex:	The title part of the book.
 	book.pdf:	The output pdf file.
 	
