@@ -12,7 +12,6 @@ Files:
 	README:		This file
 	book.tex: 	The main source of the book, written in LaTeX.
 	title.tex:	The title part of the book.
-	book.pdf:	The output pdf file.
 	
 
 You are encouraged to make the book better. You can contribute in many ways - suggesting new features, correcting mistakes in the book, or adding new topics, or whatever that you think will make the book better. But remember the target audiences, and dont include too many topics that are not mentions in the syllabus.
