@@ -1,7 +1,7 @@
 
 
 \documentclass{book}
-
+\usepackage{txfonts}
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{amsmath, amssymb}
@@ -46,25 +46,18 @@
 
 
 
-This book is specially written for the use of students of the Calicut University
-for the course EE09-601 MICROPROCESSORS \& MICROCONTROLLERS. This is an
-open-source project, done using \LaTeX .\\[.1cm]
+This book is specially written for the use of students of the Calicut University, compliant with the latest syllabus revision 2009, 
+for the course EE09-601 MICROPROCESSORS \& MICROCONTROLLERS. If you feel there is something lacking in this book, please let us know, or contribute yourself and be a part of this project. The sources are kept at my Github repository \href{http://github.com/aurabindo/mp-and-mc-book}{http://github.com/aurabindo/mp-and-mc-book}\\[.1cm]
 
-\noindent The first chapter is not in the syllabus. But you should be thorough with that part if you want the preceeding chapters to really make some sense to you. If you plan to skip the first part, then there is no special benefit you get out of this book. Happy reading!!!
+\noindent The first chapter is not in the syllabus. But you should be thorough with that part if you want the upcoming chapters to really make some sense. If you plan to skip the first part, then there is no special benefit you get out of this book. Happy reading!!!
 \\[4.5cm]
 
 \begin{quote}
 
 Copyright \copyright\ 2012 Aurabindo J\\[.3cm ]
-This book is a free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
-
-This book is distributed in the hope that it will be useful, but WITHOUT
+This book is a free software, released under the GNU Free Documentation License (GNU FDL). It is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
-License for more details.
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU FDL terms at \href{www.gnu.org/copyleft/fdl.html}{www.gnu.org/copyleft/fdl.html} for more details.
 
 \end{quote}
 \pagebreak
@@ -89,7 +82,7 @@ sheet, on a scale of 10 transisitors per page, you`ll need more than 20 million
 sheets!!! To be precise, there are 2.27 billion transisitors, and that too in 434 $mm^2$ of area! The total population of the world is 7 billion. Not bad, the transisitor is closing in :-) Even the whole blueprint of burj khalifa wouldn\rq t take more that
 500 sheets! Look around you. Try to enumerate a few things that did\rq nt need
 any help of a microprocessor to make it look like the way it is. In almost
-evrything you see, hear or use, is associated with a processor - whether
+everything you see, hear or use, is associated with a processor - whether
 directly or indirectly. That means living in a world without a microprocessor is
 same as living in the stone age! There is a one-liner which says, \lq\lq Behind
 every successful man, there is a lady\rq\rq. Now, I would like to make a small
@@ -145,11 +138,11 @@ that a $\mu$ p understands nothing other than a 0 \& 1. Yet it manages to do all
 those
 complex stuff. The key concept behind the\rq s working is it\rq s ability to
 treat a group of
-bits as\lq instruction\rq\ or \lq data\rq. The instruction tells the $\mu$p what
+bits as \lq instruction\rq\ or \lq data\rq. The instruction tells the $\mu$p what
 it
-should do -- whether to do an addition, a logic operation, a memory read/write
-operation, or whatever.
-The same may instruction tell the $\mu$p to treat a group of bits as data and
+should do -- whether to do an arithmetic operation, a logic operation, a memory read/write
+operation, power off, or even a \lq\lq do nothing".
+The same instruction may tell the $\mu$p to treat a group of bits as data and
 operate on them. 
 
 In essence, the only thing (this) $\mu$p does is, it continuously fetches some
@@ -160,23 +153,23 @@ it. It does this in sequence, not everything together. First it will read the
 instruction from memory. It will then decode. At this point, it will understand
 whether it has to fetch more bits, or to execute the instruction. After it
 finishes the execution,
-it will then go to the next memory location to fetch the next group ob bits,
+it will then go to the next memory location to fetch the next group of bits,
 which will be treated as instruction.
 
 Consider a computer that has \lq\lq1000001010" stored in the very first address
 of
-the memory location \lq\lq0000". This is called the \lq instruction code\rq.
+the memory location \lq\lq0000". The former is called the \lq instruction code\rq.
 Consider that this instruction performs an addition of two numbers stored in two
 register. So when the computer starts, 
-it fetches the bits at "0000".  Basically, this can be divided into
-two parts -- The Operation Code or the \lq OpCode\rq\ and data. This data may be
+it fetches the bits at \lq\lq 0000".  Basically, the group of fetched bits have 
+two parts -- The Operation Code or the \lq OpCode\rq\ and Data. This data may be
 considered
-as an operand or the \emph{address} of an operand. In the example code, the
+as an \emph{operand} or the \emph{address} of an operand. In the example code, the
 first 4 bits, \lq\lq 1000" is the OpCode. The subsequent group of 3 bits, \lq\lq
 001"
 and \lq\lq 010" are called operands. Here, the OpCode specifies the ADD
-instruction. The operands \lq\lq001" and ``010" will act as two register, say 
-A (the accumulator) and B. In short, the above instruction is similar to
+instruction. The operands \lq\lq001" and ``010" will represent two registers, 
+A (the accumulator) and B (a general purpose register). In short, the above instruction is similar to
 \texttt{ADD B} instruction in 8085. 
 
 \subsection{Instruction Code Formats}
@@ -229,15 +222,13 @@ found in all processors.
   \item \textit{Program Counter} \\[5pt]
     It\rq s simlpy a counter. It is perhaps the most important part of the
 computer. It initiates the fetch operation. While the computer is powered on, PC
-is reset to a value, say ``0000". The fetching circuit takes this output of PC
-and goes to that memory location. After the execution is over, when the next
-clock tick comes, the counter incrementes to ``0001". The fetch circuit again
-does the same thing and this cycle continues. It is mandatory that the next
-clock tick arrives only AFTER the current fetch is complete. Else, you wont get
+is reset to a default value, which vary with processors, say ``0000". The fetching circuit takes this output of PC
+and goes to that memory location. At the end of a fetch cycle, PC will be incremented. After executing the current instruction, the fetch circuit again
+does the same thing  -- fetches the next group of bits at the address specified by PC -- and this cycle continues. It is mandatory that the next
+clock tick arrives only AFTER the current operation is complete. Else, you wont get
 the expected result as the next execution may depend on the vaules of the
 current execution. The tiny elementary operations that a $\mu$p can do are
-called \emph{micro operations}. A group of such operation that do a meaningful
-operation is called a \emph{macro operation}
+called \emph{micro operations}. A group of such operations that do complete a basic operation, like reading from memory, writing to memory, etc.\ is called a \emph{macro operation}. The number of clock cycles taken to fetch, decode, execute and store is called a \emph{machine cycle}.
     \begin{quote}
     \textbf{A note for the Geeks:} You might have heard of processor overclocking. The maximum clock speed you can run your $\mu$p is the value limited by the
 time it takes to complete one such cycle as mentioned above. So if you increase
@@ -245,20 +236,20 @@ the clock frequency too much, it will trigger an operation before an ongoing
 operation is completed. This can have very adverse effects on the system, as the
 operation being read cannot be predicted. In fact, it can be anything. It
 may be corresponding to a memory erase operation. And if that happens to be on your
-Master Boot Record, then, ``Govinda!!!". It can even burn out the processor -- ``Gooovindaaa!!!" :-P
+Master Boot Record, then, ``Govinda!!!". It can even burn out the processor, as overclocking is done by increasing the processor supply voltage. Then, ``Gooovindaaa!!!" :-P
     \end{quote}
   \item \textit{Memory Address/Buffer Register} \\[5pt]
     Memory Opeartions are the basic things any computer should do. For this
-purpose, there are two register, MAR and MBR. During a read operation, the the
+purpose, there are two register, MAR and MBR. During a read operation, the
 address that should be read is sent to the MAR. The MBR will hold the contents
 of the memory word read from or written into memory.
 
   \item\textit{Instruction Register} \\[5pt]
   When an instruction is read from the memory, it is first placed in the MBR and
-later to the IR. It decodes the OpCode of the instruction and provides a unique output for each instruction, similar to the \emph{one hot} assignment. Thus if $q_1=1$ if the OpCode is equivalent to binary 1, $q_2=1$ if OpCode is binary 2, and so on.
+later to the IR. It decodes the OpCode of the instruction and provides a unique output for each instruction, similar to the \emph{one hot} assignment in sequential circuit design using state diagrams. Thus if $q_1=1$ if the OpCode is equivalent to binary 1, $q_2=1$ if OpCode is binary 2, and so on.
 
   \item\textit{Timing Counter} \\[5pt]
-  This is an important component of a computer, but this is invisible to the programmer. It synchronizes the fetch, decode and execute cycles of the $\mu$p with the clock pulse. The clock pulse of a digital system is like what the heart beat is, for a human. From the input clock pulse, a set of phase shifted clock pulses are derived as shown in the figure. Each ouput of the derived clock pulse will be connected to a particular circuit which does a particular micro operation. 
+  This is an important component of a computer, but this is inaccessible to the programmer. It synchronizes the fetch, decode and execute cycles of the $\mu$p with the clock pulse. The clock pulse of a digital system is like what the heart beat is, for a human. From the input clock pulse, a set of phase shifted clock pulses are derived as shown in the figure. Each ouput of the derived clock pulse will be connected to a particular circuit which does a particular micro operation. 
 
 
 
@@ -275,7 +266,7 @@ later to the IR. It decodes the OpCode of the instruction and provides a unique 
 
 
 
-The simple computer shown contains a memory unit, 7 registers \& 2 decoders. The memory unit stores an 8 bit data in a particular address. Eventhough all the data is stored in the memory, all the processing happens in the registers. The PC, IR, \& T are the part of the control unit. IR recieves the OpCode of instructions. The decoder supplies one output for each operation. The T counter is also decoded to supply eight timing variables $t_0$ thro\rq\ $t_7$ similar to the above figure. This counter is incremented every clock pulse (edge triggered). It can also be cleared at any time to start a new cycle.
+The simple computer shown contains a memory unit, 7 registers \& 2 decoders. The memory unit stores an 8 bit data in a particular address. Even though all the data is stored in the memory, all the processing happens in the registers. The PC, IR, \& T are the part of the control unit. IR recieves the OpCode of instructions. The decoder supplies one output for each operation. The T counter is also decoded to supply eight timing variables $t_0$ thro\rq\ $t_7$ similar to the above figure. This counter is incremented every clock pulse (edge triggered). It can also be cleared at any time by the processor to start a new cycle.
 
 \end{itemize}
 
@@ -380,9 +371,7 @@ The control functions and microoperations for the simple computer are summarized
 
 A practical computer has many instructions. The one we are discussing is obviously not pretty useful, but by using only 3 instructions, the basic function of a digital computer can be clearly demonstrated. The list of microoperations specifies the types of registers and associated digital functions that must be incorporated in the system. The first step in the design is to scan the RTL listed in Table \ref{rtl_simple} and retrieve all the statements that perform the same microoperation on the same register. For example, MAR $\leftarrow$ PC is listed for $t_0$, $q_2t_3$, and in $q_3t_3$. These 3 lines are combined into one statement: $$t_0 + q_2t_3 + q_3t_3: MAR \leftarrow PC$$
 
-{
-  {\color{red} \textit{\huge The figure goes here. (Implementation of x1: MAR $\langle$ -- PC)} }
-}
+
 
 A control function is a boolean function. The + between te control functions denotes a Boolean OR operation and its absence denotes an AND operation. The hardware implementation uses the simplified equations: $t_0 + (q_2 + q_3)t_3$. The binary variable $x_1$ is applied to the load input of MAR and the outputs from PC are applied to the inputs of MAR. When $x_1 = 1$, the next clock pulse transfers the contents of PC to MAR. The binary variables that causes $x_1$ to be 1 comes from the operation and timing decoders in the control unit.
 
@@ -410,13 +399,23 @@ There are a total of 8 distinct microoperations for this computer. For each micr
  \end{center}
 \end{table}
 
-  {\color{red} \textit{\huge The big figure here} }
+\begin{figure}[h]
+
+\begin{center}
+  \includegraphics[scale=1]{imgs/simple_computer.png}
+\end{center}
+\caption{Overview of a simple computer}
+\end{figure}
 
 
+See the figure in the next page, which shows the overall organization of all the stuff discussed above. That\rq all you need to know about how a $\mu$p works. The one we will be dealing about in the coming chapter is a very complex one compared to this example. As now you are in a position to understand how it might work, we are ready to jump into the classic 8086!!!
+\pagebreak
 \chapter{Architecture of Intel 8086 \& Pentium}
 This chapter explains the overall architecture of the Intel`s 8086 and Pentium
 processors, its operations and
 the interrupts in 8086.
+
+---TO DO---
 
 
 \chapter{Assembly Language Programming}
